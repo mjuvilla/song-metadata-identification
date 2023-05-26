@@ -2,20 +2,20 @@ import sqlite3
 import os
 import numpy as np
 import random
+import csv
 
 seed = 0
 random.seed(seed)
 np.random.seed(seed)
 
 
-def read_csv(path):
-    lines = open(path).read().strip().split("\n")
-
-    # skip headers
+def read_csv(groundtruth_path):
     data = []
-    for line in lines[1:]:
-        data.append(line.split(","))
-
+    with open(groundtruth_path, "r") as infile:
+        reader = csv.reader(infile, delimiter=',', quotechar='|')
+        next(reader, None)  # skip the headers
+        for row in reader:
+            data.append(row)
     return data
 
 
