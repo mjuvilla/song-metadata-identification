@@ -1,5 +1,4 @@
 import os
-
 from data import DataBase, GroundTruth
 import tensorflow as tf
 from tensorflow import keras
