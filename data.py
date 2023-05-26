@@ -69,7 +69,3 @@ class DataBase:
             match[column_name] = item
 
         return match
-
-# data = Data("groundtruth.csv", "db.db")
-# stuff = data.get_sr_by_srid("spotify_apidsr__2NbYAPqE6FTyQte9kW4vgr")
-# cosa = 0

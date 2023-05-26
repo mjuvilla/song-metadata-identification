@@ -3,6 +3,7 @@ import tensorflow as tf
 
 tf.random.set_seed(0)
 
+
 def song_similarity(sr1, sr2):
     similarity = {}
     for key in sr1.keys():

@@ -39,13 +39,31 @@ data_to_features: given a dataset (previously acquired using the GroundTruth cla
 extracts for each entry the features we will be using for the classification.
 
 song_similarity: given two recording entries computes the similarities between them. 
-These similarities will be the features used for classification. As suggested, the keys 
+These similarities will be the features used for classification. The keys 
 that were compared were title, artists, isrcs and contributors. To compute the similarity 
 between each string we used fuzz.WRatio, which is a composite approach of several weighted
 comparisons.
 
+### train_simple_threshold.py
 
-measurements.py
-This file contains two functions, one to compute the accuracy of the predictions and 
-another to compute precision, recall and F-score, which are usual measurements for 
-machine learning applications. These class is only used in the simple classifier since i
+This approach only performs a statistical analysis of the features, considering that
+the higher the similarity the higher the probability that the entries being compared
+are in fact the same song. Basically, the approach is that for each entry we get the mean of
+the features (the 4 scores, the comparison between titles, artists, isrcs and contributors)
+and then we compute the mean and std for the score of the valid comparisons and 
+the same for the invalid comparisons.
+
+As shown in the script, we get the following results:
+
+Valid samples -> mean score: 81.320, std score: 15.178
+
+Invalid samples -> mean score: 48.144, std score: 14.687
+
+A reasonable approximation would be setting the threshold to 64.0, meaning that if the mean 
+of the comparison is higher or equal than 64.0, we assume that that comparison is valid.
+
+### train_NN.py
+
+For this approach we use machine learning, taking advantage of the tools to perform model 
+selection given by keras.
+
