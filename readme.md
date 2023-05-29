@@ -67,3 +67,6 @@ of the comparison is higher or equal than 64.0, we assume that that comparison i
 For this approach we use machine learning, taking advantage of the tools to perform model 
 selection given by keras.
 
+### train_random_forests.py
+
+We train a classifier using sklearn and random forests.
