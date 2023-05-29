@@ -20,11 +20,15 @@ def read_csv(groundtruth_path):
 
 
 class GroundTruth:
-    def __init__(self, groundtruth_path):
+    def __init__(self, groundtruth_path, val_split: float = 0.2):
         self.ground_truth = None
         self.train = None
         self.validate = None
         self.test = None
+
+        self.train_split = 0.8 - val_split
+        self.val_split = val_split
+
         self.get_ground_truth(groundtruth_path)
 
     def get_ground_truth(self, groundtruth_path):
@@ -33,11 +37,12 @@ class GroundTruth:
 
         self.ground_truth = read_csv(groundtruth_path)
         np.random.shuffle(self.ground_truth)
-        n_train = int(np.floor(len(self.ground_truth) * 0.6))
-        n_val = int(np.floor(len(self.ground_truth) * 0.2))
+        n_train = int(np.floor(len(self.ground_truth) * self.train_split))
+        n_val = int(np.floor(len(self.ground_truth) * self.val_split))
 
         self.train = self.ground_truth[:n_train]
-        self.validate = self.ground_truth[n_train:n_train + n_val]
+        if n_val:
+            self.validate = self.ground_truth[n_train:n_train + n_val]
         self.test = self.ground_truth[n_train + n_val:]
 
 
